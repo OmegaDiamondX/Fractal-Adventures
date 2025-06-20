@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3 uid="uid://cw53xe5abwai1"]
+
+[ext_resource type="Texture2D" uid="uid://8wnqemcjhpmq" path="res://Sprites/Checkpoint.png" id="1_2ky85"]
+[ext_resource type="Script" path="res://Scripts/Checkpoint.gd" id="1_at1m1"]
+
+[sub_resource type="Animation" id="Animation_4jr86"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Checkpoint:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Checkpoint:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 20)]
+}
+
+[sub_resource type="Animation" id="Animation_c1utc"]
+resource_name = "cp_spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Checkpoint:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.5708, 3.14159]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Checkpoint:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 20), Vector2(0, -10), Vector2(0, 20)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u8va2"]
+_data = {
+"RESET": SubResource("Animation_4jr86"),
+"cp_spin": SubResource("Animation_c1utc")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hoo5e"]
+size = Vector2(47, 74)
+
+[node name="CheckPoint" type="Node2D"]
+script = ExtResource("1_at1m1")
+
+[node name="Checkpoint" type="Sprite2D" parent="."]
+position = Vector2(0, 20)
+texture = ExtResource("1_2ky85")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u8va2")
+}
+
+[node name="CpCollider" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CpCollider"]
+position = Vector2(0.5, 6)
+shape = SubResource("RectangleShape2D_hoo5e")
+
+[connection signal="body_entered" from="CpCollider" to="." method="_on_cp_collider_body_entered"]

@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://bkw2hib0tmxje"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenu.gd" id="1_fpch0"]
+[ext_resource type="AudioStream" uid="uid://bfruox3at00mh" path="res://Music/Menu.wav" id="2_gh70a"]
+
+[sub_resource type="Gradient" id="Gradient_tujy2"]
+colors = PackedColorArray(0.2484, 0.2484, 0.2484, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d0e1q"]
+gradient = SubResource("Gradient_tujy2")
+fill_from = Vector2(0, 0.5)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_1v0j6"]
+
+[sub_resource type="FontVariation" id="FontVariation_mn028"]
+base_font = SubResource("SystemFont_1v0j6")
+variation_transform = Transform2D(1.175, 0.205, -0.07, 1.05, 0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mojp7"]
+font = SubResource("FontVariation_mn028")
+font_size = 31
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_fpch0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(628, 302)
+scale = Vector2(30, 30)
+texture = SubResource("GradientTexture2D_d0e1q")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 216.0
+offset_top = 197.0
+offset_right = 937.0
+offset_bottom = 312.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Нереальные приключения в мире с фрактальными деревьями"
+label_settings = SubResource("LabelSettings_mojp7")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="."]
+offset_left = 393.0
+offset_top = 415.0
+offset_right = 736.0
+offset_bottom = 522.0
+action_mode = 0
+text = "Начать игру"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_gh70a")
+volume_db = -1.188
+autoplay = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, 323)
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

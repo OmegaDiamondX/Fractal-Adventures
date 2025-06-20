@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://tul243mnwg7c"]
+
+[ext_resource type="Script" path="res://Scripts/FractalTree.gd" id="1_en27o"]
+[ext_resource type="AudioStream" uid="uid://xteu1ontfw4t" path="res://Music/blipSelect.wav" id="2_odaxc"]
+
+[node name="FractalTree" type="Node2D"]
+script = ExtResource("1_en27o")
+bleep = ExtResource("2_odaxc")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Bleep" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_odaxc")
+volume_db = -8.32
